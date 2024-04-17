@@ -25,14 +25,32 @@ namespace Full_GRASP_And_SOLID.Library
             this.steps.Remove(step);
         }
 
+        
+          public double CalculateTotalProductionCost()
+        {
+            double ingredientCost = 0;
+            double equipmentCost = 0;
+
+            foreach (Step step in this.steps)
+            {
+                ingredientCost += step.Input.UnitCost * step.Quantity;
+                equipmentCost += step.Equipment.HourlyCost * step.Time;
+            }
+
+            return ingredientCost + equipmentCost;
+        }
         public void PrintRecipe()
         {
+            {
             Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
             foreach (Step step in this.steps)
             {
-                Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
-                    $"usando '{step.Equipment.Description}' durante {step.Time}");
+                Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' usando '{step.Equipment.Description}' durante {step.Time} minutos");
             }
+
+
+            Console.WriteLine($"\nCosto total de producción: ${this.CalculateTotalProductionCost()}");
         }
     }
+}
 }

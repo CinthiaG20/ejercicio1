@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Full_GRASP_And_SOLID.Library;
 
@@ -26,6 +27,7 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
             recipe.PrintRecipe();
+            GetProductionCost(productCatalog,equipmentCatalog);
         }
 
         private static void PopulateCatalogs()
@@ -68,6 +70,12 @@ namespace Full_GRASP_And_SOLID
         {
             var query = from Equipment equipment in equipmentCatalog where equipment.Description == description select equipment;
             return query.FirstOrDefault();
+        }
+        private static void GetProductionCost(ArrayList insumos,ArrayList equipo){
+            double costo_insumos=0;
+            foreach(Product product in insumos){
+                costo_insumos=costo_insumos+product.UnitCost;
+            }
         }
     }
 }
